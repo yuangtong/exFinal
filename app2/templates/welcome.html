@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Django</title>
+    </head>
+    <body>
+        <h1>Bienvenidos a {{ nombreUsuario }}</h1>
+        <ol>
+            {% for lenguaje in lista_lenguajes %}
+                <li>{{ lenguaje }}</li>
+            {% endfor %}
+        </ol>
+        {% if var_selectiva == 'VueJS' %}
+            <h3>Framework de frontend</h3>
+        {% else %}
+            <h3>No es un framework de frontend</h3>
+        {% endif %}
+    </body>
+</html>

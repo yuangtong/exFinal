@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gestor de usuarios</title>
+        <style>
+            table {
+                width: 80%;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <h1>VISTA PRINCIPAL - GESTOR DE USUARIOS</h1>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+            <a href="{% url 'app3:nuevoUsuario' %}">
+                <button style="width: 120px;">Nuevo usuario</button>
+            </a>
+            <a>
+                <button style="width: 120px;">Ver historico</button>
+            </a>
+        </div>
+        <br>
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <table>
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Tipo de persona</th>
+                    <th>Codigo de persona</th>
+                    <th>Telefono</th>
+                    <th>Residencia</th>
+                    <th>Ver tareas</th>
+                </thead>
+                <tbody>
+                    {% for personaInfo in personasTotales %}
+                    <tr>
+                        <td>{{ personaInfo.nombre }}</td>
+                        <td>{{ personaInfo.apellido }}</td>
+                        <td>{{ personaInfo.fecha }}</td>
+                        <td>{{ personaInfo.tipoPersona }}</td>
+                        <td>{{ personaInfo.codigoPersona }}</td>
+                        <td>{{ personaInfo.datosadicionales.telefono }}</td>
+                        <td>{{ personaInfo.datosadicionales.residencia }}</td>
+                        <td><a href="{% url 'app3:verTareas' personaInfo.id %}"><button>Ver</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

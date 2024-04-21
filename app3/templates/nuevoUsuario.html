@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nuevo usuario</title>
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <h1>CREAR NUEVO USUARIO</h1>
+        </div>
+        <br>
+        <div>
+            <a href="{% url 'app3:index' %}">
+                <button>Regresar</button>
+            </a>
+        </div>
+        <br>
+        <div>
+            <form style="display: flex; flex-direction: row; width: 100%; justify-content: center;" method="post" action="{% url 'app3:nuevoUsuario' %}">
+                {% csrf_token %}
+                <div style="width: 60%;">
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Apellido</label>
+                            <input type="text" name="apellido" required>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Fecha de nacimiento</label>
+                            <input type="date" name="fecha" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Tipo Persona</label>
+                            <input type="text" name="tipo" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Codigo</label>
+                            <input type="text" name="codigo" required>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Telefono</label>
+                            <input type="text" name="telefono" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; width: 45%;">
+                            <label>Residencia</label>
+                            <input type="text" name="residencia" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <input type="submit" value="Crear usuario">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

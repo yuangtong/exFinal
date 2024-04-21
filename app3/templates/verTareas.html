@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gestor de tareas</title>
+        <style>
+            table {
+                width: 80%;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <h1>VISTA DE TAREAS</h1>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+            <a href="{% url 'app3:index' %}">
+                <button style="width: 120px;">Regresar</button>
+            </a>
+            <a>
+            </a>
+        </div>
+        <br>
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <table>
+                <thead>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                </thead>
+                <tbody>
+                    {% for tareaInfo in tareasxUsuario %}
+                    <tr>
+                        <td>{{ tareaInfo.nombre }}</td>
+                        <td>{{ tareaInfo.descripcion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
