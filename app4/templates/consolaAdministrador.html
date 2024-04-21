@@ -63,7 +63,12 @@
                                 <td>{{ usuarioInfo.last_name }}</td>
                                 <td>{{ usuarioInfo.datosusuario.nroCelular }}</td>
                                 <td>{{ usuarioInfo.datosusuario.fechaCreacion }}</td>
-                                <td class="text-center"><a class="btn btn-warning" href="#"><i class="fa-solid fa-edit"></i></a></td>
+                                <td class="text-center">
+                                    <!-- Botón para abrir la ventana modal -->
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>
+                                </td>
                                 <td class="text-center"><a class="btn btn-danger" href="#"><i class="fa-solid fa-trash"></i></a></td>
                             </tr>
                             {% endfor %}
@@ -138,4 +143,54 @@
             </form>
         </div>
     </div>
+</div>
+
+<!-- P1. Modal de Editar usuario-->  
+<!-- Ventana modal -->
+<div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="editarUsuarioModalLabel">Editar usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <form action="{% url 'app4:consolaAdministrador' %}" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+        <div class="mb-3">
+            <label for="nombreUsuario" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="{{ usuario.first_name }}">
+        </div>
+        <div class="mb-3">
+            <label for="apellidoUsuario" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario" value="{{ usuario.last_name }}">
+        </div>
+        <div class="mb-3">
+            <label for="profesionUsuario" class="form-label">Profesion</label>
+            <input type="text" class="form-control" id="profesionUsuario" name="profesionUsuario" value="{{ usuario.datosusuario.profesionUsuario }}">
+        </div>
+        <div class="mb-3">
+            <label for="nroCelular" class="form-label">Nro de celular</label>
+            <input type="text" class="form-control" id="nroCelular" name="nroCelular" value="{{ usuario.datosusuario.nroCelular }}">
+        </div>
+        <div class="mb-3">
+            <label for="perfilUsuario" class="form-label">Perfil del usuario</label>
+            <textarea class="form-control" id="perfilUsuario" name="perfilUsuario" rows="3">{{ usuario.datosusuario.perfilUsuario }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="emailUsuario" class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" value="{{ usuario.email }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="usernameUsuario" class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameUsuario" name="usernameUsuario" value="{{ usuario.username }}" readonly>
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+    </form>
+    </div>
+</div>
 </div>
