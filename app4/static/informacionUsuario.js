@@ -90,3 +90,40 @@ function getCookie(name)
     }
     return cookieValue;
 }
+
+function cargarInformacionUsuario(idUsuario) {
+    /*
+    PREGUNTA 3
+    Desarrollar la función de javascript que permita consultar la ruta
+    obtenerInformacionUsuario?idUsuario=${idUsuario}
+    Revisar la implementacion realizada en clase para el detalle de las
+    tareas.
+    */
+    // Construye la URL para la solicitud
+    var url = '/obtenerDatosUsuario/' + idUsuario;
+
+    // Realiza la solicitud fetch
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos del usuario');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Coloca los datos del usuario en los campos del formulario
+            document.querySelector('input[name="nombreUsuario"]').value = data.nombre;
+            document.querySelector('input[name="apellidoUsuario"]').value = data.apellido;
+            document.querySelector('input[name="profesionUsuario"]').value = data.profesion;
+            document.querySelector('input[name="nroCelular"]').value = data.nroCelular;
+            document.querySelector('textarea[name="perfilUsuario"]').value = data.perfil;
+            document.querySelector('input[name="emailUsuario"]').value = data.email;
+            document.querySelector('input[name="usernameUsuario"]').value = data.username;
+
+            // Coloca el id del usuario en el campo oculto del formulario
+            document.querySelector('input[name="idUsuario"]').value = idUsuario;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

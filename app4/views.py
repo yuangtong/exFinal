@@ -5,6 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import datosUsuario, tareasSistem, comentarioTarea
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_POST
 import datetime
 import json
 
@@ -145,3 +151,50 @@ def publicarComentario(request):
 
 def react1(request):
     return render(request,'react1.html')
+
+def get_user_info(request, user_id):
+    """
+    Pregunta 2
+    Esta funcion devolvera los campos que se necesitan cargar en la ventana modal para poder ser editados
+    Con el id del usuario se puede obtener el objeto y devolver el objeto Json con la informacion necesaria.
+    """
+    # Obtén el usuario basado en el ID proporcionado
+    user = get_object_or_404(User, pk=user_id)
+
+    # Obtén el objeto datosUsuario relacionado
+    datos_usuario = user.datosusuario
+
+    # Crea un diccionario con la información del usuario
+    user_info = {
+        'nombre': user.first_name,
+        'apellido': user.last_name,
+        'email': user.email,
+        'username': user.username,
+        'profesion': datos_usuario.profesion,
+        'nroCelular': datos_usuario.nroCelular,
+        'perfil': datos_usuario.perfil,
+    }
+
+    # Devuelve la información del usuario como una respuesta JSON
+    return JsonResponse({'resp' : '200'})
+
+@require_POST
+def actualizarUsuario(request):
+    # Obtén el usuario basado en el ID proporcionado
+    user_id = request.POST.get('idUsuario')
+    user = get_object_or_404(User, pk=user_id)
+
+    # Actualiza los campos del usuario
+    user.first_name = request.POST.get('nombreUsuario')
+    user.last_name = request.POST.get('apellidoUsuario')
+    user.save()
+
+    # Obtén el objeto datosUsuario relacionado y actualiza sus campos
+    datos_usuario = user.datosusuario
+    datos_usuario.profesion = request.POST.get('profesionUsuario')
+    datos_usuario.nroCelular = request.POST.get('nroCelular')
+    datos_usuario.perfil = request.POST.get('perfilUsuario')
+    datos_usuario.save()
+
+    # Redirige al usuario a la página que desees después de la actualización
+    return HttpResponseRedirect (reverse('app4:consolaAdministrador'))
